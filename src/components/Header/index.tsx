@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../routes.ts';
+import { ROUTES } from '../../constants/routes.ts';
 
 export const Header = () => {
   const navigate = useNavigate();

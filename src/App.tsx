@@ -1,7 +1,7 @@
 import './App.css';
 import { Header } from './components/Header';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { ROUTES } from './routes.ts';
+import { ROUTES } from './constants/routes.ts';
 import { ListPage } from './pages/ListPage';
 import { FormPage } from './pages/FormPage';
 import { ItemPage } from './pages/ItemPage';
