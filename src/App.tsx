@@ -5,6 +5,7 @@ import { ROUTES } from './constants/routes.ts';
 import { ListPage } from './pages/ListPage';
 import { FormPage } from './pages/FormPage';
 import { ItemPage } from './pages/ItemPage';
+import { Footer } from './components/Footer';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path={ROUTES.form} element={<FormPage />} />
         <Route path={ROUTES.item} element={<ItemPage />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

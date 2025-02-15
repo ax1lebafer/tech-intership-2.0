@@ -6,7 +6,7 @@ export const ItemPage = () => {
 
   return (
     <Box component="main">
-      <Typography variant="h4" component="h1">
+      <Typography variant="h4" component="h1" sx={{ marginBottom: '1rem' }}>
         Объявление #{id}
       </Typography>
     </Box>

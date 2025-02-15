@@ -5,7 +5,7 @@ import {
   useSelector,
   useStore,
 } from 'react-redux';
-import { advertisementsReducer } from './redusers/Advertisement';
+import { advertisementsReducer } from './reducers/Advertisement';
 
 export const makeStore = () => {
   return configureStore({

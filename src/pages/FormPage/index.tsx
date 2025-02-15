@@ -4,7 +4,7 @@ import { AddForm } from '../../components/AddForm';
 export const FormPage = () => {
   return (
     <Box component="main">
-      <Typography component="h1" variant="h4">
+      <Typography component="h1" variant="h4" sx={{ marginBottom: '1rem' }}>
         Разместить объявление
       </Typography>
 

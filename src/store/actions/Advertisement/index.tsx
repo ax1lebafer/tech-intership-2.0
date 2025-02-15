@@ -1,17 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { IRealEstateData } from '../../../types/advertisement.ts';
+import { IAdvertisementData } from '../../../types/advertisement.ts';
 import {
   ACTION_CREATE_REAL_ESTATE,
-  ACTION_GET_REAL_ESTATE,
+  ACTION_GET_ADVERTISEMENTS,
 } from './constants.ts';
 import { ICreateRealEstateData } from './types.ts';
 
-export const getRealEstateAsync = createAsyncThunk(
-  ACTION_GET_REAL_ESTATE,
+export const getAdvertisementsAsync = createAsyncThunk(
+  ACTION_GET_ADVERTISEMENTS,
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get<IRealEstateData[]>('/api/items');
+      const response = await axios.get<IAdvertisementData[]>('/api/items');
 
       return response.data;
     } catch (error) {

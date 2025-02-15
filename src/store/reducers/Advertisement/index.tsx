@@ -2,14 +2,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IAdvertisementsState } from './types.ts';
 import {
   createRealEstateAsync,
-  getRealEstateAsync,
+  getAdvertisementsAsync,
 } from '../../actions/Advertisement';
-import { IRealEstateData } from '../../../types/advertisement.ts';
+import { IAdvertisementData } from '../../../types/advertisement.ts';
 
 const initialState: IAdvertisementsState = {
-  realEstate: null,
+  advertisements: null,
   loading: false,
   error: null,
+  success: false,
 };
 
 const advertisementsSlice = createSlice({
@@ -18,20 +19,20 @@ const advertisementsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getRealEstateAsync.pending, (state) => {
+      .addCase(getAdvertisementsAsync.pending, (state) => {
         state.error = null;
         state.loading = true;
       })
       .addCase(
-        getRealEstateAsync.fulfilled,
-        (state, action: PayloadAction<IRealEstateData[]>) => {
+        getAdvertisementsAsync.fulfilled,
+        (state, action: PayloadAction<IAdvertisementData[]>) => {
           state.error = null;
           state.loading = false;
-          state.realEstate = action.payload;
+          state.advertisements = action.payload;
         }
       )
       .addCase(
-        getRealEstateAsync.rejected,
+        getAdvertisementsAsync.rejected,
         (state, action: PayloadAction<any>) => {
           state.error = action.payload;
           state.loading = false;
@@ -40,16 +41,19 @@ const advertisementsSlice = createSlice({
       .addCase(createRealEstateAsync.pending, (state) => {
         state.error = null;
         state.loading = true;
+        state.success = false;
       })
       .addCase(createRealEstateAsync.fulfilled, (state, action) => {
         state.error = null;
         state.loading = false;
+        state.success = true;
       })
       .addCase(
         createRealEstateAsync.rejected,
         (state, action: PayloadAction<any>) => {
           state.loading = false;
           state.error = action.payload;
+          state.success = false;
         }
       );
   },

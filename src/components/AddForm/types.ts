@@ -19,3 +19,14 @@ export interface IAddFormValues {
   cost: number | null;
   workSchedule: string;
 }
+
+export interface IErrorsValues {
+  name: boolean;
+  description: boolean;
+  location: boolean;
+  type: boolean;
+  propertyType: boolean;
+  area: boolean;
+  rooms: boolean;
+  price: boolean;
+}
