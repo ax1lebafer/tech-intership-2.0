@@ -20,6 +20,7 @@ import Grid from '@mui/material/Grid2';
 import styles from './styles.module.css';
 import { RealEstateForm } from './RealEstateForm';
 import { AutoForm } from './AutoForm';
+import { ServiceForm } from './ServiceForm';
 
 export const AddForm: FC<IAddFormProps> = () => {
   const [formValues, setFormValues] = useState<IAddFormValues>(
@@ -110,6 +111,8 @@ export const AddForm: FC<IAddFormProps> = () => {
       setStep(2);
     }
   };
+
+  console.log(formValues);
 
   return (
     <Box className={styles.wrapper}>
@@ -216,6 +219,16 @@ export const AddForm: FC<IAddFormProps> = () => {
 
         {step === 2 && formValues.type === 'Авто' && (
           <AutoForm
+            formValues={formValues}
+            onDataChange={handleRealEstateChange}
+            setStep={setStep}
+            errors={errors}
+            setErrors={setErrors}
+          />
+        )}
+
+        {step === 2 && formValues.type === 'Услуги' && (
+          <ServiceForm
             formValues={formValues}
             onDataChange={handleRealEstateChange}
             setStep={setStep}

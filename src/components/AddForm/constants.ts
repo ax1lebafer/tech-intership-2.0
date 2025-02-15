@@ -45,4 +45,5 @@ export const INITIAL_ERRORS_VALUES: IErrorsValues = {
   serviceType: false,
   experience: false,
   cost: false,
+  workSchedule: false,
 };

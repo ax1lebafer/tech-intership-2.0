@@ -39,4 +39,5 @@ export interface IErrorsValues {
   serviceType: boolean;
   experience: boolean;
   cost: boolean;
+  workSchedule: boolean;
 }
