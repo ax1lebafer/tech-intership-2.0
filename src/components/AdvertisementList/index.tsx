@@ -45,7 +45,9 @@ export const AdvertisementList = () => {
                     alt="Фото"
                     className={styles.photo}
                   />
-                  <Typography>{adv.name}</Typography>
+                  <Typography>
+                    <b>{adv.name}</b>
+                  </Typography>
                   <Typography>{adv.location}</Typography>
                   <Box
                     sx={{

@@ -19,6 +19,7 @@ import {
 import Grid from '@mui/material/Grid2';
 import styles from './styles.module.css';
 import { RealEstateForm } from './RealEstateForm';
+import { AutoForm } from './AutoForm';
 
 export const AddForm: FC<IAddFormProps> = () => {
   const [formValues, setFormValues] = useState<IAddFormValues>(
@@ -205,6 +206,16 @@ export const AddForm: FC<IAddFormProps> = () => {
 
         {step === 2 && formValues.type === 'Недвижимость' && (
           <RealEstateForm
+            formValues={formValues}
+            onDataChange={handleRealEstateChange}
+            setStep={setStep}
+            errors={errors}
+            setErrors={setErrors}
+          />
+        )}
+
+        {step === 2 && formValues.type === 'Авто' && (
+          <AutoForm
             formValues={formValues}
             onDataChange={handleRealEstateChange}
             setStep={setStep}

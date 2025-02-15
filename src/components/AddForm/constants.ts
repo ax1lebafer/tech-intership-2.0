@@ -31,8 +31,18 @@ export const INITIAL_ERRORS_VALUES: IErrorsValues = {
   description: false,
   location: false,
   type: false,
+
   propertyType: false,
   area: false,
   rooms: false,
   price: false,
+
+  brand: false,
+  model: false,
+  year: false,
+  mileage: false,
+
+  serviceType: false,
+  experience: false,
+  cost: false,
 };

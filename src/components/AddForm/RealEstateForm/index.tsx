@@ -15,10 +15,10 @@ import { ChangeEvent, FC } from 'react';
 import { IRealEstateFormProps } from './types.ts';
 import { PROPERTY_TYPE_OPTIONS } from './constants.ts';
 import { useAppDispatch, useAppSelector } from '../../../store/store.ts';
-import { createRealEstateAsync } from '../../../store/actions/Advertisement';
-import { ICreateRealEstateData } from '../../../store/actions/Advertisement/types.ts';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/routes.ts';
+import { ICreateAdvertisementData } from '../../../store/actions/Advertisement/types.ts';
+import { createAdvertisementAsync } from '../../../store/actions/Advertisement';
 
 export const RealEstateForm: FC<IRealEstateFormProps> = ({
   formValues,
@@ -29,7 +29,7 @@ export const RealEstateForm: FC<IRealEstateFormProps> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  const { success } = useAppSelector((state) => state.advertisement);
+  const { success, error } = useAppSelector((state) => state.advertisement);
 
   const navigate = useNavigate();
 
@@ -53,7 +53,7 @@ export const RealEstateForm: FC<IRealEstateFormProps> = ({
     }));
   };
 
-  const handleCreateAdvertisement = () => {
+  const handleCreateAdvertisement = async () => {
     const {
       name,
       description,
@@ -94,7 +94,7 @@ export const RealEstateForm: FC<IRealEstateFormProps> = ({
     }
 
     if (propertyType && area && rooms && price) {
-      const newAdv: ICreateRealEstateData = {
+      const newAdv: ICreateAdvertisementData = {
         name,
         description,
         location,
@@ -106,7 +106,7 @@ export const RealEstateForm: FC<IRealEstateFormProps> = ({
       };
 
       try {
-        dispatch(createRealEstateAsync(newAdv));
+        await dispatch(createAdvertisementAsync(newAdv));
         navigate(ROUTES.list);
       } catch (error) {
         console.log(error);
@@ -196,6 +196,7 @@ export const RealEstateForm: FC<IRealEstateFormProps> = ({
         </Box>
       </Grid>
       {success && <Alert severity="success">Объявление размещено</Alert>}
+      {error && <Alert severity="error">{error}</Alert>}
     </Grid>
   );
 };

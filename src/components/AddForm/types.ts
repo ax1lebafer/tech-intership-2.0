@@ -25,8 +25,18 @@ export interface IErrorsValues {
   description: boolean;
   location: boolean;
   type: boolean;
+
   propertyType: boolean;
   area: boolean;
   rooms: boolean;
   price: boolean;
+
+  brand: boolean;
+  model: boolean;
+  year: boolean;
+  mileage: boolean;
+
+  serviceType: boolean;
+  experience: boolean;
+  cost: boolean;
 }
