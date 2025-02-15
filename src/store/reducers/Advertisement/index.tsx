@@ -2,12 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IAdvertisementsState } from './types.ts';
 import {
   createRealEstateAsync,
+  getAdvertisementByIdAsync,
   getAdvertisementsAsync,
 } from '../../actions/Advertisement';
 import { IAdvertisementData } from '../../../types/advertisement.ts';
 
 const initialState: IAdvertisementsState = {
   advertisements: null,
+  advertisement: null,
   loading: false,
   error: null,
   success: false,
@@ -54,6 +56,27 @@ const advertisementsSlice = createSlice({
           state.loading = false;
           state.error = action.payload;
           state.success = false;
+        }
+      )
+      .addCase(getAdvertisementByIdAsync.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.advertisement = null;
+      })
+      .addCase(
+        getAdvertisementByIdAsync.fulfilled,
+        (state, action: PayloadAction<IAdvertisementData>) => {
+          state.loading = false;
+          state.error = null;
+          state.advertisement = action.payload;
+        }
+      )
+      .addCase(
+        getAdvertisementByIdAsync.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.loading = false;
+          state.error = action.payload;
+          state.advertisement = null;
         }
       );
   },

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { IAdvertisementData } from '../../../types/advertisement.ts';
 import {
   ACTION_CREATE_REAL_ESTATE,
+  ACTION_GET_ADVERTISEMENT_BY_ID,
   ACTION_GET_ADVERTISEMENTS,
 } from './constants.ts';
 import { ICreateRealEstateData } from './types.ts';
@@ -25,6 +26,19 @@ export const createRealEstateAsync = createAsyncThunk(
   async (data: ICreateRealEstateData, thunkAPI) => {
     try {
       const response = await axios.post('/api/items', data);
+
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const getAdvertisementByIdAsync = createAsyncThunk(
+  ACTION_GET_ADVERTISEMENT_BY_ID,
+  async (id: number, thunkAPI) => {
+    try {
+      const response = await axios.get(`/api/items/${id}`);
 
       return response.data;
     } catch (error) {

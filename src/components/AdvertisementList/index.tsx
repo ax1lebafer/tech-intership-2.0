@@ -58,7 +58,7 @@ export const AdvertisementList = () => {
                     <Button
                       size="small"
                       variant="contained"
-                      onClick={() => navigate(`/items/${adv.id}`)}
+                      onClick={() => navigate(`/item/${adv.id}`)}
                     >
                       Открыть
                     </Button>
