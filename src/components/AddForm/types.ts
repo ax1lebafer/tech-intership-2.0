@@ -1,6 +1,7 @@
 export interface IAddFormProps {}
 
 export interface IAddFormValues {
+  id?: number | null;
   name: string;
   description: string;
   location: string;

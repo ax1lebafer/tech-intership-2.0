@@ -1,6 +1,7 @@
 import { IAddFormValues, IErrorsValues } from './types.ts';
 
 export const INITIAL_ADD_FORM_VALUES: IAddFormValues = {
+  id: null,
   name: '',
   description: '',
   location: '',

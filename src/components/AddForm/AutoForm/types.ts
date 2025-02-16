@@ -7,4 +7,5 @@ export interface IAutoFormProps {
   setStep: Dispatch<SetStateAction<number>>;
   errors: IErrorsValues;
   setErrors: Dispatch<SetStateAction<IErrorsValues>>;
+  isEdit: boolean;
 }

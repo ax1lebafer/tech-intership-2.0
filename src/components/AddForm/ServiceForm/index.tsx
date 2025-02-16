@@ -2,8 +2,14 @@ import { ChangeEvent, FC } from 'react';
 import { IServiceFormProps } from './types.ts';
 import { useAppDispatch, useAppSelector } from '../../../store/store.ts';
 import { useNavigate } from 'react-router-dom';
-import { ICreateAdvertisementData } from '../../../store/actions/Advertisement/types.ts';
-import { createAdvertisementAsync } from '../../../store/actions/Advertisement';
+import {
+  ICreateAdvertisementData,
+  IUpdateAdvertisementData,
+} from '../../../store/actions/Advertisement/types.ts';
+import {
+  createAdvertisementAsync,
+  updateAdvertisementAsync,
+} from '../../../store/actions/Advertisement';
 import { ROUTES } from '../../../constants/routes.ts';
 import Grid from '@mui/material/Grid2';
 import {
@@ -26,6 +32,7 @@ export const ServiceForm: FC<IServiceFormProps> = ({
   setStep,
   errors,
   setErrors,
+  isEdit,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -55,6 +62,7 @@ export const ServiceForm: FC<IServiceFormProps> = ({
 
   const handleCreateAdvertisement = async () => {
     const {
+      id,
       name,
       description,
       location,
@@ -105,8 +113,24 @@ export const ServiceForm: FC<IServiceFormProps> = ({
         workSchedule,
       };
 
+      const updAdv: IUpdateAdvertisementData = {
+        id: id!,
+        name,
+        description,
+        location,
+        type,
+        serviceType,
+        experience: parseInt(String(experience)),
+        cost: parseInt(String(cost)),
+        workSchedule,
+      };
+
       try {
-        await dispatch(createAdvertisementAsync(newAdv)).unwrap();
+        if (isEdit) {
+          await dispatch(updateAdvertisementAsync(updAdv)).unwrap();
+        } else {
+          await dispatch(createAdvertisementAsync(newAdv)).unwrap();
+        }
         navigate(ROUTES.list);
       } catch (error) {
         console.log(error);

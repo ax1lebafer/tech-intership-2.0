@@ -10,6 +10,7 @@ import {
   Select,
   SelectChangeEvent,
   TextField,
+  Typography,
 } from '@mui/material';
 import {
   CATEGORY_OPTIONS,
@@ -21,10 +22,14 @@ import styles from './styles.module.css';
 import { RealEstateForm } from './RealEstateForm';
 import { AutoForm } from './AutoForm';
 import { ServiceForm } from './ServiceForm';
+import { useLocation } from 'react-router-dom';
 
 export const AddForm: FC<IAddFormProps> = () => {
+  const location = useLocation();
+  const { advertisement, isEdit } = location.state || {};
+
   const [formValues, setFormValues] = useState<IAddFormValues>(
-    INITIAL_ADD_FORM_VALUES
+    advertisement || INITIAL_ADD_FORM_VALUES
   );
   const [step, setStep] = useState(1);
   const [errors, setErrors] = useState(INITIAL_ERRORS_VALUES);
@@ -112,10 +117,14 @@ export const AddForm: FC<IAddFormProps> = () => {
     }
   };
 
-  console.log(formValues);
+  console.log(isEdit ? 'Редактирование' : 'Создание');
 
   return (
     <Box className={styles.wrapper}>
+      <Typography component="h1" variant="h4" sx={{ marginBottom: '1rem' }}>
+        {isEdit ? 'Редактировать объявление' : 'Разместить объявление'}
+      </Typography>
+
       <Box className={styles.content}>
         {step === 1 && (
           <Grid container spacing={2} direction="column">
@@ -214,6 +223,7 @@ export const AddForm: FC<IAddFormProps> = () => {
             setStep={setStep}
             errors={errors}
             setErrors={setErrors}
+            isEdit={isEdit}
           />
         )}
 
@@ -224,6 +234,7 @@ export const AddForm: FC<IAddFormProps> = () => {
             setStep={setStep}
             errors={errors}
             setErrors={setErrors}
+            isEdit={isEdit}
           />
         )}
 
@@ -234,6 +245,7 @@ export const AddForm: FC<IAddFormProps> = () => {
             setStep={setStep}
             errors={errors}
             setErrors={setErrors}
+            isEdit={isEdit}
           />
         )}
       </Box>

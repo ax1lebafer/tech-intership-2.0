@@ -15,12 +15,14 @@ export const Header = () => {
         padding: '1rem 0',
       }}
     >
-      <Typography
-        sx={{ fontSize: '20px' }}
-        onClick={() => navigate(ROUTES.list)}
-      >
-        LOGO
-      </Typography>
+      <Box>
+        <Typography
+          sx={{ fontSize: '20px', cursor: 'pointer' }}
+          onClick={() => navigate(ROUTES.list)}
+        >
+          LOGO
+        </Typography>
+      </Box>
 
       <Button variant="contained" onClick={() => navigate(ROUTES.form)}>
         Разместить объявление

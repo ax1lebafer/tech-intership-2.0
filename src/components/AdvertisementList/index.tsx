@@ -30,8 +30,6 @@ export const AdvertisementList = () => {
     handleGetAdvertisement();
   }, []);
 
-  console.log('advertisements:', advertisements);
-
   return (
     <Box className={styles.wrapper}>
       <Grid container spacing={2} sx={{ minHeight: '80vh' }}>

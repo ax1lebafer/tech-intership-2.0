@@ -5,8 +5,9 @@ import {
   ACTION_CREATE_ADVERTISEMENT,
   ACTION_GET_ADVERTISEMENT_BY_ID,
   ACTION_GET_ADVERTISEMENTS,
+  ACTION_UPDATE_ADVERTISEMENT,
 } from './constants.ts';
-import { ICreateAdvertisementData } from './types.ts';
+import { ICreateAdvertisementData, IUpdateAdvertisementData } from './types.ts';
 
 export const getAdvertisementsAsync = createAsyncThunk(
   ACTION_GET_ADVERTISEMENTS,
@@ -47,6 +48,25 @@ export const getAdvertisementByIdAsync = createAsyncThunk(
   async (id: number, thunkAPI) => {
     try {
       const response = await axios.get(`/api/items/${id}`);
+
+      return response.data;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        return thunkAPI.rejectWithValue(error.response?.data?.error || 'Error');
+      } else {
+        return thunkAPI.rejectWithValue('An unexpected error occurred');
+      }
+    }
+  }
+);
+
+export const updateAdvertisementAsync = createAsyncThunk(
+  ACTION_UPDATE_ADVERTISEMENT,
+  async (args: IUpdateAdvertisementData, thunkAPI) => {
+    const { id, ...rest } = args;
+
+    try {
+      const response = await axios.put(`/api/items/${id}`, rest);
 
       return response.data;
     } catch (error: unknown) {

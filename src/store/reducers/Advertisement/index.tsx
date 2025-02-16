@@ -4,6 +4,7 @@ import {
   createAdvertisementAsync,
   getAdvertisementByIdAsync,
   getAdvertisementsAsync,
+  updateAdvertisementAsync,
 } from '../../actions/Advertisement';
 import { IAdvertisementData } from '../../../types/advertisement.ts';
 
@@ -77,6 +78,24 @@ const advertisementsSlice = createSlice({
           state.loading = false;
           state.error = action.payload;
           state.advertisement = null;
+        }
+      )
+      .addCase(updateAdvertisementAsync.pending, (state) => {
+        state.error = null;
+        state.loading = true;
+        state.success = false;
+      })
+      .addCase(updateAdvertisementAsync.fulfilled, (state) => {
+        state.error = null;
+        state.loading = false;
+        state.success = true;
+      })
+      .addCase(
+        updateAdvertisementAsync.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.error = action.payload;
+          state.loading = false;
+          state.success = false;
         }
       );
   },

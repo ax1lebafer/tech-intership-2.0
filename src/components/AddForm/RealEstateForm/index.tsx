@@ -17,8 +17,14 @@ import { PROPERTY_TYPE_OPTIONS } from './constants.ts';
 import { useAppDispatch, useAppSelector } from '../../../store/store.ts';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/routes.ts';
-import { ICreateAdvertisementData } from '../../../store/actions/Advertisement/types.ts';
-import { createAdvertisementAsync } from '../../../store/actions/Advertisement';
+import {
+  ICreateAdvertisementData,
+  IUpdateAdvertisementData,
+} from '../../../store/actions/Advertisement/types.ts';
+import {
+  createAdvertisementAsync,
+  updateAdvertisementAsync,
+} from '../../../store/actions/Advertisement';
 
 export const RealEstateForm: FC<IRealEstateFormProps> = ({
   formValues,
@@ -26,6 +32,7 @@ export const RealEstateForm: FC<IRealEstateFormProps> = ({
   setStep,
   errors,
   setErrors,
+  isEdit,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -55,6 +62,7 @@ export const RealEstateForm: FC<IRealEstateFormProps> = ({
 
   const handleCreateAdvertisement = async () => {
     const {
+      id,
       name,
       description,
       location,
@@ -105,8 +113,24 @@ export const RealEstateForm: FC<IRealEstateFormProps> = ({
         price: parseInt(String(price)),
       };
 
+      const updAdv: IUpdateAdvertisementData = {
+        id: id!,
+        name,
+        description,
+        location,
+        type,
+        propertyType,
+        area: parseInt(String(area)),
+        rooms: parseInt(String(rooms)),
+        price: parseInt(String(price)),
+      };
+
       try {
-        await dispatch(createAdvertisementAsync(newAdv));
+        if (isEdit) {
+          await dispatch(updateAdvertisementAsync(updAdv)).unwrap();
+        } else {
+          await dispatch(createAdvertisementAsync(newAdv)).unwrap();
+        }
         navigate(ROUTES.list);
       } catch (error) {
         console.log(error);

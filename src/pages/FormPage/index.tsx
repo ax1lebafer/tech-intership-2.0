@@ -1,13 +1,9 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { AddForm } from '../../components/AddForm';
 
 export const FormPage = () => {
   return (
     <Box component="main">
-      <Typography component="h1" variant="h4" sx={{ marginBottom: '1rem' }}>
-        Разместить объявление
-      </Typography>
-
       <AddForm />
     </Box>
   );

@@ -5,8 +5,14 @@ import { IAutoFormProps } from './types.ts';
 import { ROUTES } from '../../../constants/routes.ts';
 import { useAppDispatch, useAppSelector } from '../../../store/store.ts';
 import { useNavigate } from 'react-router-dom';
-import { ICreateAdvertisementData } from '../../../store/actions/Advertisement/types.ts';
-import { createAdvertisementAsync } from '../../../store/actions/Advertisement';
+import {
+  ICreateAdvertisementData,
+  IUpdateAdvertisementData,
+} from '../../../store/actions/Advertisement/types.ts';
+import {
+  createAdvertisementAsync,
+  updateAdvertisementAsync,
+} from '../../../store/actions/Advertisement';
 
 export const AutoForm: FC<IAutoFormProps> = ({
   formValues,
@@ -14,6 +20,7 @@ export const AutoForm: FC<IAutoFormProps> = ({
   setStep,
   errors,
   setErrors,
+  isEdit,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -32,8 +39,17 @@ export const AutoForm: FC<IAutoFormProps> = ({
   };
 
   const handleCreateAdvertisement = async () => {
-    const { name, description, location, type, brand, model, year, mileage } =
-      formValues;
+    const {
+      id,
+      name,
+      description,
+      location,
+      type,
+      brand,
+      model,
+      year,
+      mileage,
+    } = formValues;
 
     if (!brand) {
       setErrors((prevState) => ({
@@ -75,8 +91,24 @@ export const AutoForm: FC<IAutoFormProps> = ({
         mileage: parseInt(String(mileage)),
       };
 
+      const updAdv: IUpdateAdvertisementData = {
+        id: id!,
+        name,
+        description,
+        location,
+        type,
+        brand,
+        model,
+        year: parseInt(String(year)),
+        mileage: parseInt(String(mileage)),
+      };
+
       try {
-        await dispatch(createAdvertisementAsync(newAdv)).unwrap();
+        if (isEdit) {
+          await dispatch(updateAdvertisementAsync(updAdv)).unwrap();
+        } else {
+          await dispatch(createAdvertisementAsync(newAdv)).unwrap();
+        }
         navigate(ROUTES.list);
       } catch (error) {
         console.log(error);
