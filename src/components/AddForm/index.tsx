@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { IAddFormProps, IAddFormValues } from './types.ts';
 import {
   Box,
@@ -23,8 +23,12 @@ import { RealEstateForm } from './RealEstateForm';
 import { AutoForm } from './AutoForm';
 import { ServiceForm } from './ServiceForm';
 import { useLocation } from 'react-router-dom';
+import { useAppDispatch } from '../../store/store.ts';
+import { resetSuccess } from '../../store/reducers/Advertisement';
 
 export const AddForm: FC<IAddFormProps> = () => {
+  const dispatch = useAppDispatch();
+
   const location = useLocation();
   const { advertisement, isEdit } = location.state || {};
 
@@ -116,6 +120,12 @@ export const AddForm: FC<IAddFormProps> = () => {
       setStep(2);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetSuccess());
+    };
+  }, []);
 
   return (
     <Box className={styles.wrapper}>

@@ -19,7 +19,11 @@ const initialState: IAdvertisementsState = {
 const advertisementsSlice = createSlice({
   name: 'advertisements',
   initialState,
-  reducers: {},
+  reducers: {
+    resetSuccess: (state) => {
+      state.success = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAdvertisementsAsync.pending, (state) => {
@@ -100,5 +104,7 @@ const advertisementsSlice = createSlice({
       );
   },
 });
+
+export const { resetSuccess } = advertisementsSlice.actions;
 
 export const advertisementsReducer = advertisementsSlice.reducer;
