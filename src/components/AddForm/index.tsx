@@ -117,8 +117,6 @@ export const AddForm: FC<IAddFormProps> = () => {
     }
   };
 
-  console.log(isEdit ? 'Редактирование' : 'Создание');
-
   return (
     <Box className={styles.wrapper}>
       <Typography component="h1" variant="h4" sx={{ marginBottom: '1rem' }}>
